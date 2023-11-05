@@ -17,12 +17,15 @@ use App\Http\Controllers\Admin\MovieController;
 Route::group(['prefix' => 'admin' ], function () {
     Route::view('/', 'admin.dashboard')->name('admin.dashboard');
 
-    Route::group([
+    Route::group(['prefix' => 'movie'], function() {
+        Route::get('/movie', [MovieController::class, 'index']);
+        Route::get('/movie/create', [MovieController::class, 'create']);
 
-    ]);
+        
+    });
 
-    Route::get('/movie', [MovieController::class, 'index']);
-    Route::get('/movie/create', [MovieController::class, 'create']);
+    
+    
 });
 
 
