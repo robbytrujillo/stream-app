@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\MovieController;
 |
 */
 
+// group admin
 Route::group(['prefix' => 'admin' ], function () {
     Route::view('/', 'admin.dashboard')->name('admin.dashboard');
 
