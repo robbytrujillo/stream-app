@@ -14,7 +14,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-12">
-              <a href="" class="btn btn-warning">Create Movie</a>
+              <a href="{{ route('admin.movie.create') }}" class="btn btn-warning">Create Movie</a>
             </div>
           </div>
 
