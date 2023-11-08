@@ -36,6 +36,10 @@
               <input type="text" class="form-control" id="trailer" name="trailer" placeholder="Video url" value="{{ old('trailer') }}">
             </div>
             <div class="form-group">
+              <label for="duration">Movie</label>
+              <input type="text" class="form-control" id="movie" name="movie" placeholder="Url" value="{{ old('movie') }}">
+            </div>
+            <div class="form-group">
               <label for="duration">Duration</label>
               <input type="text" class="form-control" id="duration" name="duration" placeholder="1h 39m" value="{{ old('duration') }}">
             </div>

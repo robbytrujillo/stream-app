@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use App\Models\Movie;
 
 class MovieController extends Controller
 {
@@ -33,7 +35,27 @@ class MovieController extends Controller
             'featured' => 'required',
         ]);
 
-        // dd($data);
+        $smallThumbnail = $request->small_thumbnail;
+        $largeThumbnail = $request->large_thumbnail;
+
+        // random imageName
+        $originalSmallThumbnailName = Str::random(10).$smallThumbnail->getClientOriginalName();
+        $originalLargeThumbnailName = Str::random(10).$largeThumbnail->getClientOriginalName();
+
+        // upload gambar
+        $smallThumbnail->storeAs('public/thumbnail', $originalSmallThumbnailName);
+        $largeThumbnail->storeAs('public/thumbnail', $originalLargeThumbnailName);
+
+        $data['small_thumbnail'] = $originalSmallThumbnailName;
+        $data['large_thumbnail'] = $originalLargeThumbnailName;
+
+        //dd($data);
+        // menyimpan gambar di table movie
+        Movie::create($data);
+        
+        return redirect()->route('admin.movie')->with('success', 'Movie created');
+        // dd(Str::random(10).$largeThumbnail->getClientOriginalName());
+        // dd($originalSmallThumbnailName);
     }
 
     
