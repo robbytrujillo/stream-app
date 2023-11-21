@@ -64,5 +64,9 @@ class MovieController extends Controller
         // dd($originalSmallThumbnailName);
     }
 
+    public function update(Request $request, $id) {
+        $data = $request->except('_token');
+    }
+
     
 }

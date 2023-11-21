@@ -24,8 +24,9 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form enctype="multipart/form-data" method="POST" action="{{ route('admin.movie.store') }}">
+        <form enctype="multipart/form-data" method="POST" action="{{ route('admin.movie.update', $movie->id) }}">
           @csrf
+          @method('PUT')
           <div class="card-body">
             <div class="form-group">
               <label for="title">Title</label>
@@ -79,8 +80,8 @@
             <div class="form-group">
               <label>Featured</label>
               <select class="custom-select" name="featured">
-                <option value="0" {{ $movie->featured === '0' ? "selected" : "" }}>No</option>
-                <option value="1" {{ $movie->featured === '1' ? "selected" : "" }}>Yes</option>
+                <option value="0" {{ $movie->featured == '0' ? "selected" : "" }}>No</option>
+                <option value="1" {{ $movie->featured == '1' ? "selected" : "" }}>Yes</option>
               </select>
             </div>
           </div>
