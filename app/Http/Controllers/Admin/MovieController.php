@@ -83,7 +83,7 @@ class MovieController extends Controller
             'featured' => 'required',
         ]);
 
-        $movie = Movie::find();
+        $movie = Movie::find($id);
 
         if ($request -> small_thumbnail) {
             // save new image
@@ -99,25 +99,28 @@ class MovieController extends Controller
             $data['small_thumbnail'] = $originalSmallThumbnailName;
 
             // delete old image
-
+            Storage::delete('public/thumbnail/'.$movie->small_thumbnail);
         }
 
-        
-        $largeThumbnail = $request->large_thumbnail;
+        if ($request->large_thumbnail) {
+            // save new image
+            $largeThumbnail = $request->large_thumbnail;
 
-        // random imageName
-        
-        $originalLargeThumbnailName = Str::random(10).$largeThumbnail->getClientOriginalName();
+            // random imageName
+            $originalLargeThumbnailName = Str::random(10).$largeThumbnail->getClientOriginalName();
 
-        // upload gambar
-        
-        $largeThumbnail->storeAs('public/thumbnail', $originalLargeThumbnailName);
+            // upload gambar
+            $largeThumbnail->storeAs('public/thumbnail', $originalLargeThumbnailName);
 
-        
-        $data['large_thumbnail'] = $originalLargeThumbnailName;
+            // original name
+            $data['large_thumbnail'] = $originalLargeThumbnailName;
 
+            // delete old image
+            //Storage::delete('public/thumbnail/'.$movie->large_thumbnail);
+        }
 
+        $movie->update($data);
+
+        return redirect()->route('admin.movie')->with('success', 'Movie updated');
     }
-
-    
 }
