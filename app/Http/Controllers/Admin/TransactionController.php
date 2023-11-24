@@ -10,8 +10,11 @@ use App\Models\Transaction;
 class TransactionController extends Controller
 {
     public function index() {
-        $transactions = Transaction::get();
-        dd($transactions);
-        return view('admin.transactions');
+        $transactions = Transaction::with([
+            'package',
+            'user',
+        ])->get();
+        // dd($transactions);
+        return view('admin.transactions', ['transactions' => $transactions]);
     }
 }

@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\TransactionController;
-use App\Models\Transaction;
+use App\Http\Controllers\Admin\LoginController;
+// use App\Models\Transaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,10 @@ use App\Models\Transaction;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// group auth
+Route::get('admin/login',[LoginController::class, 'index'])->name('admin.login');
+Route::post('admin/login',[LoginController::class, 'authenticate'])->name('admin.login.auth');
+
 
 // group admin
 Route::group(['prefix' => 'admin' ], function () {
