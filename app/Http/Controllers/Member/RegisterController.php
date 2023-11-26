@@ -26,7 +26,7 @@ class RegisterController extends Controller
         $data = $request->except('_token');
 
         // cek email
-        $isEmailExist = User::where('email', $request->email)->exist();
+        $isEmailExist = User::where('email', $request->email)->exists();
         
         if ($isEmailExist) {
             return back()->withErrors([
@@ -37,6 +37,10 @@ class RegisterController extends Controller
         $data['password'] = Hash::make($request->password);
 
         User::create($data);
+
+        return back();
+
+        //return redirect()->route('member.login');
         }
     }
 
