@@ -30,6 +30,10 @@ class LoginController extends Controller
             return 'success';
             // return redirect()->route('member.dashboard');
         }
+
+        return back()->withErrors([
+            'credentials' => 'Your credentials are wrong'
+        ])->withInput();
     }
 
     // function logout
