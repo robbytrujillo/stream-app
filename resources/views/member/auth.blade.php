@@ -63,12 +63,12 @@
                                     class="rounded-full py-3 pr-3 pl-6 text-stream-dark placeholder:text-stream-gray placeholder:font-normal font-medium outline-stream-gray outline outline-1 text-base focus:outline-indigo-600 input-stream"
                                     placeholder="Your password" />
                             </div>
-                            <a href="index.html" class="bg-indigo-600 rounded-full py-3 mt-4 text-center">
+                            {{-- <a href="index.html" class="bg-indigo-600 rounded-full py-3 mt-4 text-center">
                                 <span class="font-semibold text-white text-base">Continue</span>
-                            </a>
-                            <!-- <button type="submit" class="bg-indigo-600 rounded-full py-3 mt-4 text-center">
+                            </a> --}}
+                            <button type="submit" class="bg-indigo-600 rounded-full py-3 mt-4 text-center">
                                 <span class="font-semibold text-white text-base">Continue</span>
-                            </button> -->
+                            </button> 
                         </form>
                     </section>
                 </div>

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     public function index() {
-        return view('member.login');
+        return view('member.auth');
     }
 
     // function login
@@ -18,6 +18,6 @@ class LoginController extends Controller
 
     // function logout
     public function logout() {
-        
+
     }
 }
