@@ -30,12 +30,14 @@
 <body class="bg-stream-dark font-poppins">
     <!-- Desktop Only -->
     <div class="mx-auto max-w-screen hidden lg:block">
+        {{-- sidebar --}}
         @include('member.layouts.sidebar')
-       
+
         <!-- START: Content -->
         <div class="ml-[410px] pr-[50px] overflow-hidden">
             <div class="py-[70px] flex flex-col gap-[50px]">
-                @include('member.layouts.navbar')
+                {{-- navbar --}}
+                @include('member.layouts.navbar') 
 
             </div>
         </div>
