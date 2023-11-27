@@ -13,7 +13,7 @@
                             <a href="#!"
                                 class="outline outline-2 outline-stream-gray p-[6px] rounded-full w-[60px] dropdown-button"
                                 data-target="#dropdown-stream">
-                                <img src="assets/images/photo.png" class="rounded-full object-cover w-full"
+                                <img src="{{ asset('stream/assets/images/photo.png') }}" class="rounded-full object-cover w-full"
                                     alt="stream" />
                             </a>
                             <div class="bg-white rounded-2xl text-stream-dark font-medium flex flex-col gap-1 absolute z-[999] right-0 top-[80px] min-w-[180px] hidden overflow-hidden"
