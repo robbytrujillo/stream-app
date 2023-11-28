@@ -14,6 +14,6 @@ class DashboardController extends Controller
                   ->orderBy('created_at', 'DESC')
                   ->get();
 
-        return view('member.dashboard');
+        return view('member.dashboard', ['movies' => $movies]); // parse data movies
     }
 }
