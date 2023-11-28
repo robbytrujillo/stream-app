@@ -8,7 +8,7 @@
  
  <!-- Details -->
  <div class="flex gap-14 items-start">
-    <a href="dashboard.html">
+    <a href="{{ route('member.dashboard') }}">
         <img src="{{ asset('stream/assets/images/ic_arrow-left-normal.svg') }}" alt="">
     </a>
     <div class="flex flex-col gap-10">

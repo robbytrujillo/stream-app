@@ -12,6 +12,6 @@ class MovieController extends Controller
         $movie = Movie::find($id);
         
         // lempar data ke view
-        return view('member.movie->detail', ['movie' => $movie]); // parsing data
+        return view('member.movie-detail', ['movie' => $movie]); // parsing data
     }
 }
