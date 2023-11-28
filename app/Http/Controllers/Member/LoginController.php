@@ -27,8 +27,8 @@ class LoginController extends Controller
             // regenerate session
             $request->session()->regenerate();
 
-            return 'success';
-            // return redirect()->route('member.dashboard');
+            // return 'success';
+            return redirect()->route('member.dashboard');
         }
 
         return back()->withErrors([

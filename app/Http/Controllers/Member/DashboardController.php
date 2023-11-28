@@ -9,6 +9,9 @@ use App\Models\Movie; // tambahkan models movie
 class DashboardController extends Controller
 {
     public function index() {
+        //  panggil helper dari laravel
+        // dd(auth()->user());
+
         // panggil data movie
         $movies = Movie::orderBy('featured', 'DESC')
                   ->orderBy('created_at', 'DESC')
