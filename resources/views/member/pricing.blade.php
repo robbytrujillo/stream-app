@@ -64,10 +64,10 @@
                         <!-- Card -->
                         <div class="pricing-card">
                             <p class="text-stream-dark font-medium text-base">
-                                {{ $standardPackage->name }}
+                                {{ $standard->name }}
                             </p>
                             <div class="text-3xl text-stream-dark font-semibold my-1">
-                                Rp {{ $standardPackage->price }}
+                                Rp {{ $standard->price }}
                             </div>
                             <p class="text-sm text-stream-gray">
                                 /bulan
@@ -79,7 +79,7 @@
                                 <!-- benefits -->
                                 <div class="flex items-center justify-between gap-3">
                                     <span class="li-benefits">
-                                        2 Users Limits
+                                        {{ $standard->max_user }} Limits
                                     </span>
                                     <img src="{{ asset('stream/assets/images/ic_check.svg') }}" alt="stream" />
                                 </div>
