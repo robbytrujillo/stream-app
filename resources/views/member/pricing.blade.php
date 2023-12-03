@@ -47,8 +47,6 @@
                 <!-- Logo & User Avatar -->
                 @if (auth()->user())
                     @include('member.layouts.navbar')
-                @else
-                    
                 @endif
 
                 <div class="pt-[85px] flex flex-col items-center gap-5">
@@ -64,10 +62,10 @@
                         <!-- Card -->
                         <div class="pricing-card">
                             <p class="text-stream-dark font-medium text-base">
-                                {{ $standard->name }}
+                                {{ ucwords($standard->name) }}
                             </p>
                             <div class="text-3xl text-stream-dark font-semibold my-1">
-                                Rp {{ $standard->price }}
+                                Rp {{ number_format($standard->price) }}
                             </div>
                             <p class="text-sm text-stream-gray">
                                 /bulan
@@ -124,10 +122,10 @@
                         <!-- Card -->
                         <div class="pricing-card">
                             <p class="text-stream-dark font-medium text-base">
-                                Gold
+                                {{ ucwords($gold->name) }}
                             </p>
                             <div class="text-3xl text-stream-dark font-semibold my-1">
-                                Rp 699.000
+                                Rp {{ number_format($gold->price) }}
                             </div>
                             <p class="text-sm text-stream-gray">
                                 /bulan
@@ -139,7 +137,7 @@
                                 <!-- benefits -->
                                 <div class="flex items-center justify-between gap-3">
                                     <span class="li-benefits">
-                                        7 Users Limits
+                                        {{ $gold->user_limits }} Users Limits
                                     </span>
                                     <img src="{{ asset('stream/assets/images/ic_check.svg') }}" alt="stream" />
                                 </div>
