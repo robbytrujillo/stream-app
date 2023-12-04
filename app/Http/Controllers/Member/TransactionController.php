@@ -28,33 +28,39 @@ require_once dirname(__FILE__) . '/pathofproject/Midtrans.php'; */
 
 $package = Package::find($request->package_id);
 
-$transaction = Transaction::create() {[
-    'package_id' => $package->id,
-]
+$customer = auth()->user();
 
-}
+$transaction = Transaction::create([
+    'package_id' => $package->id,
+    'user_id' => $customer->id,
+    'amount' => $package->price,
+    'transaction_code' => strtoupper(Str::random(10)),
+    'status' => 'pending'
+
+]
+);
 
 //SAMPLE REQUEST START HERE
 
 // Set your Merchant Server Key
-\Midtrans\Config::$serverKey = 'YOUR_SERVER_KEY';
+\Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
 // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-\Midtrans\Config::$isProduction = false;
+\Midtrans\Config::$isProduction = (bool) env('MIDTRANS_IS_PRODUCTION');
 // Set sanitization on (default)
-\Midtrans\Config::$isSanitized = true;
+\Midtrans\Config::$isSanitized = (bool) env('MIDTRANS_IS_SANITAZED');
 // Set 3DS transaction for credit card to true
-\Midtrans\Config::$is3ds = true;
+\Midtrans\Config::$is3ds = (bool) env('MIDTRANS_IS_3DS');
 
 $params = array(
     'transaction_details' => array(
-        'order_id' => rand(),
-        'gross_amount' => 10000,
+        'order_id' => $transaction->transaction_code,
+        'gross_amount' => $transaction_amount,
     ),
     'customer_details' => array(
-        'first_name' => 'budi',
-        'last_name' => 'pratama',
-        'email' => 'budi.pra@example.com',
-        'phone' => '08111222333',
+        'first_name' => $customer->name,
+        'last_name' => $customer->name,
+        'email' => $customer->email,
+        //'phone' => '08111222333',
     ),
 );
 
