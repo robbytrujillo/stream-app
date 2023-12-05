@@ -6,31 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Package;
-use App\Illuminate\Support\Str;
+use Illuminate\Support\Str;
 
 class TransactionController extends Controller
 {
     public function store(Request $request) {
-        // dd($request->all());
-        // return "test";
+        
+    $package = Package::find($request->package_id);
 
+    $customer = auth()->user();
 
-
-
-        /*Install Midtrans PHP Library (https://github.com/Midtrans/midtrans-php)
-composer require midtrans/midtrans-php
-                              
-Alternatively, if you are not using **Composer**, you can download midtrans-php library 
-(https://github.com/Midtrans/midtrans-php/archive/master.zip), and then require 
-the file manually.   
-
-require_once dirname(__FILE__) . '/pathofproject/Midtrans.php'; */
-
-$package = Package::find($request->package_id);
-
-$customer = auth()->user();
-
-$transaction = Transaction::create([
+    $transaction = Transaction::create([
     'package_id' => $package->id,
     'user_id' => $customer->id,
     'amount' => $package->price,
@@ -54,7 +40,7 @@ $transaction = Transaction::create([
 $params = array(
     'transaction_details' => array(
         'order_id' => $transaction->transaction_code,
-        'gross_amount' => $transaction_amount,
+        'gross_amount' => $transaction->amount,
     ),
     'customer_details' => array(
         'first_name' => $customer->name,
@@ -64,6 +50,10 @@ $params = array(
     ),
 );
 
-$snapToken = \Midtrans\Snap::getSnapToken($params);
+$createMidtransTransaction = \Midtrans\Snap::createTransaction($params);
+
+$midtransRedirectUrl = $createMidtransTransaction->redirect_url;
+
+return redirect($midtransRedirectUrl);
     }
 }
