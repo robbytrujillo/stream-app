@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Package;
 use App\Models\UserPremium;
+use Illuminate\Support\carbon; //library carbon (09122023)
 
 
 class WebhookController extends Controller
@@ -45,13 +46,27 @@ class WebhookController extends Controller
               ->first();
 
               if ($status === 'success') {
-                UserPremium::create([
+                $userPremium = UserPremium::where('user_id', $transaction->user_id)->first();
+
+                if ($userPremium) {
+                  // renewal subscription
+                  $endOfSubscription = $userPremium->end_of_subscription;
+                  $date = Carbon::createFromFormat('Y-m-d', $endOfSubscription);
+                  $newEndOfSubscription = $date->addDays($transaction->package->max_days)->format('Y-m-d');
+
+                  $userPremium->update([
+                    'package_id' => $transaction->package_id,
+                    'end_of_subscription' => $newEndOfSubscription
+                  ]);
+                } else {
+                  UserPremium::create([
+                    // new subscription
                     'package_id' => $transaction->package->id,
                     'user_id' => $transaction->user->id,
                     'end_of_subscription' =>now()->addDays($transaction->package->max_days)
                 ]);
+                }
               }
-
               $transaction->update(['status' => $status]);
     }
 }
