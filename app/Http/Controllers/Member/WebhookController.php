@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Package;
 use App\Models\UserPremium;
-use Illuminate\Support\carbon; //library carbon (09122023)
+use Illuminate\Support\Carbon; //library carbon (09122023)
 
 
 class WebhookController extends Controller
 {
     public function handler(Request $request) {
         //require_once(dirname(__FILE__) . '/Midtrans.php');
-        \Midtrans\Config::$isProduction = (bool) env('MIDTRANS_IS_PRODUCTION');
+        \Midtrans\Config::$isProduction = (bool) env('MIDTRANS_IS_PRODUCTION', false);
         \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
         $notif = new \Midtrans\Notification();
         
@@ -62,11 +62,13 @@ class WebhookController extends Controller
                   UserPremium::create([
                     // new subscription
                     'package_id' => $transaction->package->id,
-                    'user_id' => $transaction->user->id,
+                    'user_id' => $transaction->user_id,
                     'end_of_subscription' =>now()->addDays($transaction->package->max_days)
                 ]);
                 }
               }
               $transaction->update(['status' => $status]);
+
+              return response()->json(null);
     }
 }

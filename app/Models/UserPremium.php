@@ -9,7 +9,7 @@ class UserPremium extends Model
 {
     use HasFactory;
 
-    protected $table = 'user_premium'; // nama table
+    protected $table = 'user_premiums'; // nama table
 
     protected $fillable = [
         'package_id',
