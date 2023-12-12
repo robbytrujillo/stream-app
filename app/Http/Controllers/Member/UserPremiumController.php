@@ -9,7 +9,7 @@ use App\Models\UserPremium;
 class UserPremiumController extends Controller
 {
     public function index() {
-        $userId = Auth()->user()->id;
+        $userId = auth()->user()->id;
         $userPremium = UserPremium::with('package')
             ->where('user_id', $userId)
             ->first();
@@ -19,5 +19,11 @@ class UserPremiumController extends Controller
         }
 
         return view('member.subscription', ['user_premium' => $userPremium]);
+    }
+
+    public function destroy($id) {
+        UserPremium::destroy($id);
+
+        return redirect()->route('member.dashboard');
     }
 }

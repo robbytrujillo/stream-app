@@ -1,8 +1,8 @@
 @extends('member.layouts.base')
 
-@section('title', 'Watch Today')
+@section('title', 'Subscription')
 
-@section('title-description', 'Our selected movies for your mood')
+@section('title-description', 'Spend to get more good memories')
 
 @section('content')
 
@@ -29,7 +29,7 @@
 <div class="flex flex-col gap-6 font-medium text-base text-white -mt-[10px] px-[18px]">
     <div class="flex gap-4 items-center">
         <img src="{{ asset('stream/assets/images/ic_check-dark.svg') }}" alt="">
-        <span>{{ $user_premium->package->max_users }} Users Limits</span>
+        <span>{{ $user_premium->package->max_days }} Users Limits</span>
     </div>
     <div class="flex gap-4 items-center">
         <img src="{{ asset('stream/assets/images/ic_check-dark.svg') }}" alt="">
@@ -52,12 +52,20 @@
 
 <!-- Action Button -->
 <div class="flex flex-col gap-[14px] max-w-max">
-    <a href="#!" class="py-[13px] px-[58px] bg-[#5138ED] rounded-full text-center">
+    <form method="post" action="{{ route('member.transaction.store') }}">
+
+    @csrf
+    <input type="hidden" name="package_id" value="{{ $user_premium->package_id }}">
+
+    <button type="submit" 
+        class="py-[13px] px-[58px] bg-[#5138ED] rounded-full text-center">
         <span class="text-white font-semibold text-base">
             Make a Renewal
         </span>
-    </a>
-    <a href="#!"
+    </button>
+    </form>
+
+    <a href="{{ route('pricing') }}"
         class="py-[13px] px-[58px] outline outline-1 outline-stream-gray outline-offset-[-3px] rounded-full text-center">
         <span class="text-stream-gray font-normal text-base">
             Change Plan
@@ -76,11 +84,17 @@
         by clicking the button below. Make sure that you have read our
         terms & conditions beforehand.
     </p>
-    <a href="#!" class="px-[19px] py-[13px] bg-[#FE4848] rounded-full text-center">
+
+    <form method="post" action="{{ route('member.user_premium.destroy', $user_premium->id) }}">
+        @csrf
+        @method('delete')
+    <button type="submit" 
+        class="px-[19px] py-[13px] bg-[#FE4848] rounded-full text-center">
         <span class="text-white font-semibold text-base">
             Stop Subscribe
         </span>
-    </a>
+    </button>
+</form>
 </div>
 <!-- /Stop Subscribe -->
 
