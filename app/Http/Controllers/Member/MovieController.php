@@ -25,7 +25,15 @@ class MovieController extends Controller
 
         if ($userPremium) {
             $endOfSubscription = $userPremium->end_of_subscription;
-            $date = Carbon::createFromFormat();
+            $date = Carbon::createFromFormat('Y-m-d', $endOfSubscription);
+            $isValidSubscription = $date->greaterThan(now()); // perbandingan date
+
+            if ($isValidSubscription) {
+                $movie = Movie::find($id);
+                return view('member.movie-watching', ['movie' => $movie]);
+            }
         }
+
+        return redirect()->route('pricing');
     }
 }

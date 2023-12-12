@@ -32,7 +32,7 @@
 
         <!-- Button back to dashboard -->
         <div class="absolute top-5 left-5 z-20">
-            <a href="dashboard.html">
+            <a href="{{ route('member.movie.detail', $movie->id) }}">
                 <img src="{{ asset('stream/assets/images/ic_arrow-left.svg') }}" class="transition-all btn-back w-[46px]" alt="stream" />
             </a>
         </div>
