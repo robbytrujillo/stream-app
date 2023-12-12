@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Movie;
 use App\Models\UserPremium;
+use Illuminate\Support\Carbon;  
 
 class MovieController extends Controller
 {
@@ -20,6 +21,11 @@ class MovieController extends Controller
     public function watch($id) {
         $userId = auth()->user()->id;
 
-        $userPremium = USerPremium::where('user_id', $userId)->first();
+        $userPremium = UserPremium::where('user_id', $userId)->first();
+
+        if ($userPremium) {
+            $endOfSubscription = $userPremium->end_of_subscription;
+            $date = Carbon::createFromFormat();
+        }
     }
 }
